@@ -10,7 +10,6 @@
         android:id="@+id/book_details"
         android:padding="20dp"
         android:gravity="center">
-
         <ImageView
             android:id="@+id/view_img_cover"
             android:layout_width="150dp"
@@ -49,5 +48,11 @@
             android:text="Read Now"
             android:layout_marginTop="@dimen/cardview_default_elevation"
             android:id="@+id/btn_read_more"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_download"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_archive_black_24dp" />
     </LinearLayout>
 </ScrollView>

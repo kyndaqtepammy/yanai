@@ -40,6 +40,7 @@ import static com.pamsillah.yanai.config.Config.BOOK_IMAGE_URL;
 import static com.pamsillah.yanai.config.Config.BOOK_PDF_URL;
 import static com.pamsillah.yanai.config.Config.BOOK_RATING;
 import static com.pamsillah.yanai.config.Config.BOOK_TITLE;
+import static com.pamsillah.yanai.config.Config.NODE_IMG_URL;
 
 public class HomeFragment extends Fragment{
 

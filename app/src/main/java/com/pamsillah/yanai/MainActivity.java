@@ -1,11 +1,16 @@
 package com.pamsillah.yanai;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.pamsillah.yanai.config.Config;
+import com.pamsillah.yanai.ui.auth.LoginActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_profile);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
@@ -45,8 +49,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Toast.makeText(MainActivity.this, item.getItemId(), Toast.LENGTH_SHORT).show();
-        //switch (item.getItemId())
-        return false;
+        switch (item.getItemId()) {
+            case R.id.navigation_download:
+                Toast.makeText(MainActivity.this, "Download", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.navigation_login:
+                //Toast.makeText(MainActivity.this, "Logout", Toast.LENGTH_SHORT).show();
+                SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                break;
+            default:
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
