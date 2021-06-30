@@ -3,6 +3,9 @@ package com.pamsillah.yanai.ui.detailviews;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,18 +21,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.palette.graphics.Palette;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.pamsillah.yanai.MainActivity;
 import com.pamsillah.yanai.R;
 import com.pamsillah.yanai.config.Config;
+import com.pamsillah.yanai.custom.dialogs.CustomDialogClass;
 import com.pamsillah.yanai.ui.pdf.ActivityPDFReader;
 import com.pamsillah.yanai.utils.DatabaseHelper;
 
@@ -61,6 +71,7 @@ public class BookviewFragment extends Fragment {
     Button mReadMore;
     String strBookID, strBookTitle, strBookAuthor, strBookDescr, strBookImgUrl, strBookRating, strBookUrl;
     FloatingActionButton mDownload;
+    LinearLayout linearLayout;
     DatabaseHelper databaseHelper;
     String date;
      ProgressDialog progressDialog;
@@ -72,10 +83,12 @@ public class BookviewFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_bookview, container, false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
         mBookTitle = root.findViewById(R.id.view_book_title);
         mBookAuthor = root.findViewById(R.id.view_book_author);
         mBookDescr  = root.findViewById(R.id.view_book_desr);
         mBookCover = root.findViewById(R.id.view_img_cover);
+       linearLayout = root.findViewById(R.id.bookview_linear_top);
         mBookrating = root.findViewById(R.id.view_book_rating);
         mReadMore = root.findViewById(R.id.btn_read_more);
         mDownload = root.findViewById(R.id.fab_download);
@@ -93,7 +106,35 @@ public class BookviewFragment extends Fragment {
         mBookTitle.setText(strBookTitle);
         mBookAuthor.setText(strBookAuthor);
         mBookDescr.setText(strBookDescr);
-        Glide.with(getActivity()).load(NODE_IMG_URL+strBookImgUrl).into(mBookCover);
+        Glide.with(getActivity()).asBitmap().load(NODE_IMG_URL+strBookImgUrl).into(mBookCover);
+        Glide.with(getActivity())
+                .asBitmap()
+                .load(NODE_IMG_URL+strBookImgUrl)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        mBookCover.setImageBitmap(resource);
+                        Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
+                            public void onGenerated(Palette palette) {
+                                // Do something with colors...
+                                int dominant = palette.getDominantColor( 0x000000 );
+                                int vibrant = palette.getVibrantColor(0x000000); // <=== color you want
+                                int vibrantLight = palette.getLightVibrantColor(0x000000);
+                                int vibrantDark = palette.getDarkVibrantColor(0x000000);
+                                int muted = palette.getMutedColor(0x000000);
+                                int mutedLight = palette.getLightMutedColor(0x000000);
+                                int mutedDark = palette.getDarkMutedColor(0x000000);
+
+                                linearLayout.setBackgroundColor(vibrantDark);
+                            }
+                        });
+                    }
+                });
+
+
+
+
+
 
         mReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +159,10 @@ public class BookviewFragment extends Fragment {
                 @Override
                 public void handleMessage(@NonNull Message msg) {
                     progressDialog.dismiss();
-                    //Toast.makeText(getContext(), msg.toString(), Toast.LENGTH_SHORT).show();
+                    CustomDialogClass customDialogClass = new CustomDialogClass(getActivity());
+                    customDialogClass.show();
+                    //show alert here
+
                 }
             };
         });
@@ -134,52 +178,52 @@ public class BookviewFragment extends Fragment {
         downloadFileAsync.execute(urls);
     }
 
-//    private boolean downloadBookS(final String path) {
-//        try {
-//            URL url = new URL(path);
-//            URLConnection ucon = url.openConnection();
-//            ucon.setReadTimeout(5000);
-//            ucon.setConnectTimeout(10000);
-//            InputStream is = ucon.getInputStream();
-//            BufferedInputStream inputStream = new BufferedInputStream(is, 1024 * 5);
-//            File file = new File(getActivity().getDir("filesdir", Context.MODE_PRIVATE)+ "/" + strBookTitle+".pdf");
-//
-//            if (file.exists()) {
-//                Log.d(TAG, "FILE Exists");
-//                file.delete();
-//            }
-//            file.createNewFile();
-//
-//            FileOutputStream outputStream = new FileOutputStream(file);
-//            byte[] buff =  new byte[5 * 1024];
-//            int len;
-//            while((len = inputStream.read(buff)) != -1 ) {
-//                outputStream.write(buff, 0, len);
-//            }
-//            outputStream.flush();
-//            outputStream.close();
-//            inputStream.close();
-//            //save to SQLite here
-//            databaseHelper = new DatabaseHelper(getActivity());
-//            boolean bookAdded = databaseHelper.addBook(getActivity(), strBookTitle,
-//                    strBookAuthor, strBookDescr,
-//                    strBookImgUrl, strBookUrl,
-//                    "",
-//                    "",
-//                    date,
-//                    ""
-//            );
-//            if (bookAdded) {
-//                //progressDialog.dismiss();
-//            }
-//        } catch (Exception e ) {
-//           // progressDialog.dismiss();
-//            e.printStackTrace();
-//            return false;
-//        }
-//
-//        return true;
-//    }
+    private boolean downloadBookS(final String path) {
+        try {
+            URL url = new URL(path);
+            URLConnection ucon = url.openConnection();
+            ucon.setReadTimeout(5000);
+            ucon.setConnectTimeout(10000);
+            InputStream is = ucon.getInputStream();
+            BufferedInputStream inputStream = new BufferedInputStream(is, 1024 * 5);
+            File file = new File(getActivity().getDir("filesdir", Context.MODE_PRIVATE)+ "/" + strBookTitle+".pdf");
+
+            if (file.exists()) {
+                Log.d(TAG, "FILE Exists");
+                file.delete();
+            }
+            file.createNewFile();
+
+            FileOutputStream outputStream = new FileOutputStream(file);
+            byte[] buff =  new byte[5 * 1024];
+            int len;
+            while((len = inputStream.read(buff)) != -1 ) {
+                outputStream.write(buff, 0, len);
+            }
+            outputStream.flush();
+            outputStream.close();
+            inputStream.close();
+            //save to SQLite here
+            databaseHelper = new DatabaseHelper(getActivity());
+            boolean bookAdded = databaseHelper.addBook(getActivity(), strBookTitle,
+                    strBookAuthor, strBookDescr,
+                    strBookImgUrl, strBookUrl,
+                    "",
+                    "",
+                    date,
+                    ""
+            );
+            if (bookAdded) {
+                //progressDialog.dismiss();
+            }
+        } catch (Exception e ) {
+           // progressDialog.dismiss();
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
 
     private void readMore() {
         Intent intent = new Intent(getActivity(), ActivityPDFReader.class);

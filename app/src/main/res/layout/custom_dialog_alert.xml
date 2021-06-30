@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    android:layout_gravity="center"
+    android:background="@drawable/border_rounded_blurred_grey"
+    android:padding="40dp">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/success_icon"
+        android:layout_gravity="center"
+        android:id="@+id/img_alert_img"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Success!"
+        android:layout_gravity="center"
+        android:id="@+id/txt_alert_title"
+        android:textStyle="bold"
+        android:textColor="@color/com_facebook_device_auth_text"
+        android:textSize="22sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your file has been downloaded."
+        android:layout_gravity="center"
+        android:id="@+id/txt_alert_descr"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/browser_actions_bg_grey"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"/>
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_alert_yn"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/border_rounded_success_green"
+        android:text="Awesome!"
+        android:layout_gravity="center"/>
+</LinearLayout>

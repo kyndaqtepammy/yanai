@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             };
             RequestQueue requestQueue  = Volley.newRequestQueue(LoginActivity.this);
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(20 *1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(200 *1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             requestQueue.add(stringRequest);
         }
     }
