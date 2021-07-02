@@ -62,22 +62,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String sql = "SELECT * FROM "+BOOKS_TABLE+ " WHERE "+COL5_BOOK_PDF_URL+" = "+"'"+pdf_url +"'";
         Cursor cursor = db.rawQuery(sql, null);
         ContentValues cv = new ContentValues();
-        cv.put(COL1_BOOK_TITLE, title);
-        cv.put(COL2_BOOK_AUTHOR, author);
-        cv.put(COL3_BOOK_DESCR, descr);
-        cv.put(COL4_BOOK_COVER_URL, cover_url);
-        cv.put(COL5_BOOK_PDF_URL, pdf_url);
-        cv.put(COL6_BOOK_COVER_INTERNAL, cover_internal);
-        cv.put(COL7_BOOK_PDF_INTERNAL, pdf_internal);
-        cv.put(COL8_BOOK_DATE_ADDED, date_added);
-        cv.put(COL9_BOOK_FAVORITED, book_favorited);
 
-        if (cursor.moveToFirst()) {
+        if (cursor.getCount()>0) {
             //book exists
-            ///Toast.makeText(context, "You already saved this book!", Toast.LENGTH_LONG).show();
+            Log.d(Config.TAG, "Already Exists") ;
         }
         else {
             Log.d(Config.TAG, "Adding") ;
+            cv.put(COL1_BOOK_TITLE, title);
+            cv.put(COL2_BOOK_AUTHOR, author);
+            cv.put(COL3_BOOK_DESCR, descr);
+            cv.put(COL4_BOOK_COVER_URL, cover_url);
+            cv.put(COL5_BOOK_PDF_URL, pdf_url);
+            cv.put(COL6_BOOK_COVER_INTERNAL, cover_internal);
+            cv.put(COL7_BOOK_PDF_INTERNAL, pdf_internal);
+            cv.put(COL8_BOOK_DATE_ADDED, date_added);
+            cv.put(COL9_BOOK_FAVORITED, book_favorited);
         }
         long res = db.insertOrThrow(BOOKS_TABLE, null, cv);
        if (res == -1 ) {

@@ -60,7 +60,7 @@ public class DashboardFragment extends Fragment {
 
         //Toast.makeText(getActivity(), filesPath, Toast.LENGTH_SHORT).show();
         while (data.moveToNext()) {
-            ModelBooks modelBooks = new ModelBooks(
+            final ModelBooks modelBooks = new ModelBooks(
                 data.getString(0),
                 data.getString(1),
                 data.getString(2),
@@ -75,7 +75,7 @@ public class DashboardFragment extends Fragment {
             AdapterBooks adapterBooks = new AdapterBooks(getActivity(), booksArrayList, new AdapterBooks.OnBookItemClickListener() {
                 @Override
                 public void onBookItemClick(int position) {
-                    //Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), ""+modelBooks.getBookPdfUrl(), Toast.LENGTH_SHORT).show();
                 }
             });
             mLibraryRecycler.setAdapter(adapterBooks);

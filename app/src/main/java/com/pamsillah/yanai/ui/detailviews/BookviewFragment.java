@@ -74,7 +74,8 @@ public class BookviewFragment extends Fragment {
     LinearLayout linearLayout;
     DatabaseHelper databaseHelper;
     String date;
-     ProgressDialog progressDialog;
+    ProgressDialog progressDialog;
+
     public BookviewFragment() {
 
     }
