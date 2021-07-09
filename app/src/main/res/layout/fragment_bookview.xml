@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fitsSystemWindows="true">
-    <FrameLayout
+    <FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -44,14 +39,61 @@
 
         </LinearLayout>
         <!--frame -->
-        <ImageView
-            android:id="@+id/view_img_cover"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="120dp"
-            android:layout_below="@+id/icon_heart"
-            android:layout_gravity="left"
-            android:src="@drawable/curry" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left">
+            <ImageView
+                android:id="@+id/view_img_cover"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="120dp"
+                android:layout_below="@+id/icon_heart"
+                android:src="@drawable/curry" />
+            <FrameLayout
+                style="?android:attr/buttonStyle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/btn_read_more"
+                android:layout_marginLeft="12dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/rounded_button">
+                <TextView
+                    style="?android:attr/buttonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:drawableLeft="@android:drawable/ic_delete"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"/>
+            </FrameLayout>
+            <FrameLayout
+                style="?android:attr/buttonStyle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/btn_play_audio"
+                android:layout_marginLeft="12dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/rounded_button">
+                <TextView
+                    style="?android:attr/buttonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:drawableLeft="@android:drawable/ic_delete"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"/>
+            </FrameLayout>
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -102,14 +144,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/lorem_ipsum" />
-            <Button
-                android:id="@+id/btn_read_more"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:layout_below="@+id/view_book_desr"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="40dp"
-                android:text="Read Now" />
+<!--            <Button-->
+<!--                android:id="@+id/btn_read_more"-->
+<!--                android:layout_width="250dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_below="@+id/view_book_desr"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:layout_marginTop="40dp"-->
+<!--                android:text="Read Now" />-->
         </RelativeLayout>
     </FrameLayout>
 
@@ -161,4 +203,3 @@
 <!--            android:id="@+id/btn_read_more"/>-->
 
 <!--    </LinearLayout>-->
-</ScrollView>

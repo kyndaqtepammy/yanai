@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -68,7 +69,8 @@ public class BookviewFragment extends Fragment {
     TextView mBookTitle, mBookAuthor, mBookDescr;
     ImageView mBookCover;
     RatingBar mBookrating;
-    Button mReadMore;
+    FrameLayout mReadMore;
+    FrameLayout mPlayAudio;
     String strBookID, strBookTitle, strBookAuthor, strBookDescr, strBookImgUrl, strBookRating, strBookUrl;
     FloatingActionButton mDownload;
     LinearLayout linearLayout;
@@ -92,6 +94,7 @@ public class BookviewFragment extends Fragment {
        linearLayout = root.findViewById(R.id.bookview_linear_top);
         mBookrating = root.findViewById(R.id.view_book_rating);
         mReadMore = root.findViewById(R.id.btn_read_more);
+        mPlayAudio= root.findViewById(R.id.btn_play_audio);
         mDownload = root.findViewById(R.id.fab_download);
 
         strBookID = getArguments().getString(BOOK_ID);
@@ -127,6 +130,7 @@ public class BookviewFragment extends Fragment {
                                 int mutedDark = palette.getDarkMutedColor(0x000000);
 
                                 linearLayout.setBackgroundColor(vibrantDark);
+
                             }
                         });
                     }
