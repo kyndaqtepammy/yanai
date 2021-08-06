@@ -33,14 +33,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pamsillah.yanai.config.Config.BOOK_AUDIO;
 import static com.pamsillah.yanai.config.Config.BOOK_AUTHOR;
 import static com.pamsillah.yanai.config.Config.BOOK_DESCR;
 import static com.pamsillah.yanai.config.Config.BOOK_ID;
 import static com.pamsillah.yanai.config.Config.BOOK_IMAGE_URL;
 import static com.pamsillah.yanai.config.Config.BOOK_PDF_URL;
+import static com.pamsillah.yanai.config.Config.BOOK_PRICE;
 import static com.pamsillah.yanai.config.Config.BOOK_RATING;
 import static com.pamsillah.yanai.config.Config.BOOK_TITLE;
 import static com.pamsillah.yanai.config.Config.NODE_IMG_URL;
+import static com.pamsillah.yanai.config.Config.TAG;
 
 public class HomeFragment extends Fragment{
 
@@ -69,6 +72,7 @@ public class HomeFragment extends Fragment{
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
+                Log.d(TAG, response);
 
                 try{
                     JSONObject jsonObject = new JSONObject(response);
@@ -86,7 +90,8 @@ public class HomeFragment extends Fragment{
                               booksObj.optString("cover_url"),
                               booksObj.optString("pdf_url"),
                               booksObj.optString("date_added"),
-                              booksObj.optString("price")
+                              booksObj.optString("price"),
+                              booksObj.optString("audio_url")
                         );
                         booksList.add(modelBooks);
                         AdapterBooks adapterBooks = new AdapterBooks(getActivity(), booksList, new AdapterBooks.OnBookItemClickListener() {
@@ -101,6 +106,8 @@ public class HomeFragment extends Fragment{
                                 bundle.putString(BOOK_IMAGE_URL, booksList.get(position).getBookCoverUrl() );
                                 bundle.putString(BOOK_PDF_URL, booksList.get(position).getBookPdfUrl());
                                 bundle.putString(BOOK_RATING, "4" );
+                                bundle.putString(BOOK_PRICE, booksList.get(position).getBookPrice());
+                                bundle.putString(BOOK_AUDIO, booksList.get(position).getBookAudio());
 
                                 Fragment bookFragment = new BookviewFragment();
                                 bookFragment.setArguments(bundle);

@@ -1,5 +1,6 @@
 package com.pamsillah.yanai.ui.pdf;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.pamsillah.yanai.R;
+import com.pamsillah.yanai.config.Config;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -21,10 +24,13 @@ import javax.net.ssl.HttpsURLConnection;
 
 import static com.pamsillah.yanai.config.Config.BOOK_PDF_URL;
 import static com.pamsillah.yanai.config.Config.NODE_IMG_URL;
+import static com.pamsillah.yanai.config.Config.READ_LOCAL_PDF_CODE;
 
 public class ActivityPDFReader extends AppCompatActivity {
     PDFView pdfView;
-    String pdfurl;
+    String pdfurl, pdfname;
+    //for from file
+    File file;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,11 +39,24 @@ public class ActivityPDFReader extends AppCompatActivity {
         //init pdff view
         pdfView = findViewById(R.id.pdfView);
         Intent i = getIntent();
-        pdfurl = i.getStringExtra(BOOK_PDF_URL);
-        Toast.makeText(this, pdfurl, Toast.LENGTH_SHORT).show();
-        new RetrivePDFfromUrl().execute(NODE_IMG_URL+pdfurl);
+        pdfname = i.getStringExtra(Config.PDFNMAE);
+        pdfurl  = i.getStringExtra(BOOK_PDF_URL);
 
+        if ( i.getBooleanExtra(READ_LOCAL_PDF_CODE, false) ) {
+            readFromLocal();
+        }
+
+        new RetrivePDFfromUrl().execute(NODE_IMG_URL+pdfurl);
     }
+
+
+    private void readFromLocal() {
+        file = new File(ActivityPDFReader.this.getDir("books", Context.MODE_PRIVATE)+"/"+ pdfname);
+        pdfView.recycle();
+        pdfView.fromFile(file).load();
+    }
+
+
 
     // create an async task class for loading pdf file from URL.
     class RetrivePDFfromUrl extends AsyncTask<String, Void, InputStream> {

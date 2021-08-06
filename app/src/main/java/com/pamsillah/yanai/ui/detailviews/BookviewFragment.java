@@ -3,6 +3,7 @@ package com.pamsillah.yanai.ui.detailviews;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -41,8 +42,10 @@ import com.pamsillah.yanai.MainActivity;
 import com.pamsillah.yanai.R;
 import com.pamsillah.yanai.config.Config;
 import com.pamsillah.yanai.custom.dialogs.CustomDialogClass;
+import com.pamsillah.yanai.payment.ActivityMakePayment;
 import com.pamsillah.yanai.ui.pdf.ActivityPDFReader;
 import com.pamsillah.yanai.utils.DatabaseHelper;
+import com.pamsillah.yanai.utils.HelperMethods;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -55,28 +58,37 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.pamsillah.yanai.config.Config.BOOK_AUDIO;
 import static com.pamsillah.yanai.config.Config.BOOK_AUTHOR;
 import static com.pamsillah.yanai.config.Config.BOOK_DESCR;
 import static com.pamsillah.yanai.config.Config.BOOK_ID;
 import static com.pamsillah.yanai.config.Config.BOOK_IMAGE_URL;
 import static com.pamsillah.yanai.config.Config.BOOK_PDF_URL;
+import static com.pamsillah.yanai.config.Config.BOOK_PRICE;
 import static com.pamsillah.yanai.config.Config.BOOK_RATING;
 import static com.pamsillah.yanai.config.Config.BOOK_TITLE;
 import static com.pamsillah.yanai.config.Config.NODE_IMG_URL;
 import static com.pamsillah.yanai.config.Config.TAG;
 
 public class BookviewFragment extends Fragment {
-    TextView mBookTitle, mBookAuthor, mBookDescr;
-    ImageView mBookCover;
-    RatingBar mBookrating;
-    FrameLayout mReadMore;
-    FrameLayout mPlayAudio;
-    String strBookID, strBookTitle, strBookAuthor, strBookDescr, strBookImgUrl, strBookRating, strBookUrl;
-    FloatingActionButton mDownload;
-    LinearLayout linearLayout;
-    DatabaseHelper databaseHelper;
-    String date;
-    ProgressDialog progressDialog;
+    private TextView mBookTitle, mBookAuthor, mBookDescr;
+    private ImageView mBookCover;
+    private RatingBar mBookrating;
+    private FrameLayout mReadMore;
+    private FrameLayout mPlayAudio;
+    private String strBookID,
+            strBookTitle,
+            strBookAuthor,
+            strBookDescr,
+            strBookImgUrl,
+            strBookRating,
+            strBookUrl,
+            strBookPrice, strBookAudio;
+    private FloatingActionButton mDownload;
+    private LinearLayout linearLayout;
+    private DatabaseHelper databaseHelper;
+    private String date;
+    private ProgressDialog progressDialog;
 
     public BookviewFragment() {
 
@@ -91,12 +103,14 @@ public class BookviewFragment extends Fragment {
         mBookAuthor = root.findViewById(R.id.view_book_author);
         mBookDescr  = root.findViewById(R.id.view_book_desr);
         mBookCover = root.findViewById(R.id.view_img_cover);
-       linearLayout = root.findViewById(R.id.bookview_linear_top);
+        linearLayout = root.findViewById(R.id.bookview_linear_top);
         mBookrating = root.findViewById(R.id.view_book_rating);
         mReadMore = root.findViewById(R.id.btn_read_more);
         mPlayAudio= root.findViewById(R.id.btn_play_audio);
         mDownload = root.findViewById(R.id.fab_download);
 
+
+        //from ui.home.HomeFragment
         strBookID = getArguments().getString(BOOK_ID);
         strBookTitle = getArguments().getString(BOOK_TITLE);
         strBookAuthor = getArguments().getString(BOOK_AUTHOR);
@@ -104,6 +118,8 @@ public class BookviewFragment extends Fragment {
         strBookImgUrl = getArguments().getString(BOOK_IMAGE_URL);
         strBookRating = getArguments().getString(BOOK_RATING);
         strBookUrl = getArguments().getString(BOOK_PDF_URL);
+        strBookPrice = getArguments().getString(BOOK_PRICE);
+        strBookAudio = getArguments().getString(BOOK_AUDIO);
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         date = df.format(new Date());
 
@@ -171,16 +187,31 @@ public class BookviewFragment extends Fragment {
                 }
             };
         });
+        mPlayAudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ActivityPlayAudio.class);
+                intent.putExtra(BOOK_AUDIO, strBookAudio);
+                startActivity(intent);
+            }
+        });
         return root;
     }
 
     private void downloadBook() {
-        String[] urls = {
-            NODE_IMG_URL+strBookUrl,
-            NODE_IMG_URL+strBookImgUrl
-        };
-        DownloadFileAsync downloadFileAsync = new DownloadFileAsync(urls);
-        downloadFileAsync.execute(urls);
+        //check if paid
+        if (HelperMethods.isBookPaid(Float.parseFloat(strBookPrice))) {
+            String[] urls = {
+                    NODE_IMG_URL+strBookUrl,
+                    NODE_IMG_URL+strBookImgUrl
+            };
+            DownloadFileAsync downloadFileAsync = new DownloadFileAsync(urls);
+            downloadFileAsync.execute(urls);
+        }else {
+            //go to payment activity
+            Intent intent = new Intent(getActivity(), ActivityMakePayment.class);
+            startActivity(intent);
+        }
     }
 
     private boolean downloadBookS(final String path) {
@@ -231,7 +262,7 @@ public class BookviewFragment extends Fragment {
     }
 
     private void readMore() {
-        Intent intent = new Intent(getActivity(), ActivityPDFReader.class);
+        Intent intent = new Intent(getActivity(), ActivityMakePayment.class);
         intent.putExtra(BOOK_PDF_URL, strBookUrl);
         startActivity(intent);
     }
@@ -317,6 +348,14 @@ public class BookviewFragment extends Fragment {
             System.out.println("Start:"+start+"\t\tEnd:"+end+"\t\tName:"+name);
             return name;
         }
+    }
+
+    public void downloadedBookPrefs() {
+        SharedPreferences sp = getActivity().getSharedPreferences(Config.PAYMENT_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(strBookID, strBookID);
+        editor.apply();
+        //save this info on a json file o the server as well
     }
 }
 

@@ -133,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (!error) {
                             SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
+                            //TODO: sync subscriptions
                             editor.putBoolean(Config.LOGGED_IN_PREF, true);
                             editor.putString(Config.USER_EMAIL, strEmail);
                             editor.apply();

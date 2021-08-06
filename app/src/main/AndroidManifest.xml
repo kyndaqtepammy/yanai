@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,21 +17,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".ui.auth.LoginActivity"
-            android:label="@string/title_activity_login">
+        <activity android:name=".ui.auth.LoginActivity" android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.auth.RegisterActivity"></activity>
         <activity android:name=".ui.pdf.ActivityPDFReader"></activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
-        </activity>
+        <activity android:name=".payment.ActivityMakePayment"></activity>
+        <activity android:name=".MainActivity" android:label="@string/app_name"></activity>
+        <activity android:name=".ui.detailviews.ActivityPlayAudio"></activity>
+        <service
+            android:name="com.paypal.android.sdk.payments.PayPalService"
+            android:exported="false" />
     </application>
 
 </manifest>

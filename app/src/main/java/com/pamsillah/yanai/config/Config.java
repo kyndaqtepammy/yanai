@@ -1,5 +1,7 @@
 package com.pamsillah.yanai.config;
 
+import android.media.MediaPlayer;
+
 public class Config {
     public static final String TAG = "Hezvinoyi";
     public static final String BASE_URL = "http://192.0.1.96:8083/yanai";
@@ -23,6 +25,18 @@ public class Config {
     public static final String BOOK_IMAGE_URL = "cover_url";
     public static final String BOOK_RATING = "book_rating";
     public static final String BOOK_ID = "book_id";
+    public static final String BOOK_PRICE = "book_price";
+    public static final String BOOK_AUDIO = "book_audio";
+    public static final String READ_LOCAL_PDF_CODE = "1";
+    public static final String PDFNMAE = "pdfname";
 
+    //PAYPAL
+    public static final String PAYPAL_CLIENT_ID = "AfnEiPAbeK7mwlfnGv2U7K3bqBrgX30fhtBuA9RHl4BREqg9jDJ9Yhneaw8W4tWnyfXaksBjCXGs5HsU";
+
+    //PAYMENT PREFS
+    public static final String PAYMENT_PREFS = "payment_prefs";
+
+    //media player
+    public static MediaPlayer MEDIA_PLAYER = new MediaPlayer();
 
 }
