@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.pamsillah.yanai.config.Config;
 import com.pamsillah.yanai.ui.auth.LoginActivity;
@@ -18,6 +19,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import static com.pamsillah.yanai.utils.HelperMethods.disconnectFromFacebook;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,10 +66,13 @@ public class MainActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
+
+                disconnectFromFacebook();
                 break;
             default:
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

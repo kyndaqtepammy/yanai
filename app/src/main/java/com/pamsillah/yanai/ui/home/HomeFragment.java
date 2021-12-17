@@ -18,6 +18,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -131,6 +132,14 @@ public class HomeFragment extends Fragment{
                 progressDialog.dismiss();
                 Log.d(Config.TAG, error.toString());
                 Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
+                if (error.networkResponse == null) {
+                    if (error.getClass().equals(TimeoutError.class)) {
+                        // Show timeout error message
+                        Toast.makeText(getContext(),
+                                "Oops. Timeout error!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());

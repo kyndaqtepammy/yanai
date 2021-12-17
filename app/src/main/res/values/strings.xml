@@ -21,4 +21,7 @@
         , making it look like readable English.
         Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for
     </string>
+    <string name="facebook_app_id">360562669055143</string>
+    <string name="fb_login_protocol_scheme">fb360562669055143</string>
+
 </resources>

@@ -192,6 +192,8 @@ public class BookviewFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ActivityPlayAudio.class);
                 intent.putExtra(BOOK_AUDIO, strBookAudio);
+                intent.putExtra(BOOK_AUDIO, strBookTitle);
+                intent.putExtra(BOOK_AUDIO, strBookAuthor);
                 startActivity(intent);
             }
         });

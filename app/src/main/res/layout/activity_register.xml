@@ -1,62 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <EditText
-        android:id="@+id/reg_username"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true">
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="username"
-        android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true" />
+        android:paddingTop="20dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cubfull"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-    <EditText
-        android:id="@+id/reg_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nmae"
-        android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:src="@drawable/yanailogo"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:textSize="30dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/light_grey"/>
 
-    <EditText
-        android:id="@+id/reg_email"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="@string/prompt_email"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
-        android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true" />
+            <!--        <TextView-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_gravity="center"-->
+            <!--            android:text="SIgn in using Facebook"/>-->
 
-    <EditText
-        android:id="@+id/reg_password"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true" />
-    <EditText
-        android:id="@+id/re_password"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true" />
+            <!--        <Button-->
+            <!--            android:id="@+id/button_facebook_reg"-->
+            <!--            style="@style/FacebookLoginButton"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="45dp"-->
+            <!--            android:layout_gravity="center_horizontal"-->
+            <!--            android:layout_marginTop="15dp"-->
+            <!--            android:text="Continue With Facebook"-->
+            <!--            android:textAllCaps="false"-->
+            <!--            android:textColor="@android:color/white" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_go_to_signin"
-        android:text="Already have an account? Sign in."/>
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/action_sign_in" />
 
-</LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/reg_username"
+                android:layout_height="50dp"
+                android:background="@drawable/border_orange_transparent_inner"
+                android:textColorHint="@color/yanai_orange"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:hint="Username"
+                android:inputType="text"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/border_orange_transparent_inner"
+                android:textColorHint="@color/yanai_orange"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:id="@+id/reg_name"
+                android:textSize="15sp"
+                android:hint="Full Name"
+                android:inputType="text"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/border_orange_transparent_inner"
+                android:textColorHint="@color/yanai_orange"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:id="@+id/reg_email"
+                android:textSize="15sp"
+                android:hint="Email"
+                android:inputType="text" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/border_orange_transparent_inner"
+                android:textColorHint="@color/yanai_orange"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:id="@+id/reg_password"
+                android:inputType="textPassword"
+                android:textSize="15sp"
+                android:hint="Password" />
+
+            <!--        <com.google.android.material.textfield.TextInputLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:id="@+id/tilrepassword"-->
+            <!--            android:layout_below="@+id/til_email"-->
+            <!--            android:layout_marginTop="20dp">-->
+
+            <!--            <com.google.android.material.textfield.TextInputEditText-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:id="@+id/re_password"-->
+            <!--                android:drawablePadding="20dp"-->
+            <!--                android:inputType="textPassword"-->
+            <!--                android:drawableLeft="@drawable/ic_lock_open_black_24dp"-->
+            <!--                android:textSize="15sp"-->
+            <!--                android:hint="Password" />-->
+            <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:background="@drawable/button_auth"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:layout_marginBottom="10dp"
+                android:text="Sign Up" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_go_to_signin"
+                android:layout_gravity="center"
+                android:text="Already have an account? Sign in."
+                android:textColor="@color/yanai_orange_light"/>
+        </LinearLayout>
+    </FrameLayout>
+</ScrollView>

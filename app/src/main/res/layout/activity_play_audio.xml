@@ -4,18 +4,20 @@
     android:layout_height="match_parent"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:paddingTop="@dimen/com_facebook_likeboxcountview_caret_height">
+    android:paddingTop="@dimen/com_facebook_likeboxcountview_caret_height"
+    android:background="@android:color/white">
+
     <ImageView
         android:id="@+id/imgSingleArt"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/curry"
         android:layout_gravity="center" />
-    <SeekBar
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/seek"
-        android:layout_gravity="center"/>
+    <com.google.android.exoplayer2.ui.DefaultTimeBar
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/exo_progress"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,71 +40,26 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:text="artist"/>
-    <ProgressBar
-        android:padding="8dp"
-        android:progress="0"
-        android:id="@+id/progress_bar_audio"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+
+
+    <com.google.android.exoplayer2.ui.PlayerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-    <LinearLayout
+        android:layout_height="100dp"
+        android:layout_marginTop="80dp"
+        custom:controller_layout_id="@layout/exo_customl_view"
+        custom:shutter_background_color="@android:color/white"
+        custom:buffered_color="@color/colorPrimaryDark"
+        custom:show_buffering="when_playing"
+        custom:hide_on_touch="false"
+        android:id="@+id/playerview"/>
+
+    <com.gauravk.audiovisualizer.visualizer.BarVisualizer
+        android:id="@+id/blast"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="20dp"
-        android:weightSum="5">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgPrev"
-            android:layout_weight="1"
-            android:src="@drawable/ic_arrow_back_black_24dp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/img_skip_10s"
-            android:layout_weight="1"
-            android:src="@drawable/ic_replay_10_black_24dp"/>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/imgPlay"
-                android:src="@drawable/ic_play_circle_outline_black_24dp"
-                android:layout_gravity="center" />
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/imgPause"
-                android:src="@drawable/ic_pause_circle_outline_black_24dp"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                />
-        </FrameLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/img_back_10s"
-            android:layout_weight="1"
-            android:src="@drawable/ic_replay_10_black_24dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgNext"
-            android:layout_weight="1"
-            android:src="@drawable/ic_arrow_forward_black_24dp"
-            />
-
-    </LinearLayout>
-    <com.chibde.visualizer.LineBarVisualizer
-        android:id = "@+id/visualizerLineBar"
-        android:layout_width = "match_parent"
-        android:layout_height = "240dp" />
+        android:layout_height="match_parent"
+        custom:avDensity="0.8"
+        custom:avType="fill"
+        custom:avColor="@color/av_dark_blue"
+        custom:avSpeed="normal"/>
 
 </LinearLayout>

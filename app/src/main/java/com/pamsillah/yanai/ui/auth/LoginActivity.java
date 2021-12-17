@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,7 +16,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,23 +31,39 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.facebook.login.Login;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.material.textfield.TextInputEditText;
 import com.pamsillah.yanai.MainActivity;
 import com.pamsillah.yanai.R;
 import com.pamsillah.yanai.config.Config;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.pamsillah.yanai.config.Config.LOGIN_URL;
+import static com.pamsillah.yanai.utils.HelperMethods.disconnectFromFacebook;
 
 public class LoginActivity extends AppCompatActivity {
     TextView mGoToSignup;
-    Button mLoginButton;
+    Button mLoginButton, mButtonFacebook;
     EditText mLoginEmail, mLoginPassword;
     private boolean loggedIn = false;
+    CallbackManager callbackManager;
+    LoginManager loginManager;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,12 +76,24 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.btnLogin);
         mLoginEmail = findViewById(R.id.login_email);
         mLoginPassword = findViewById(R.id.login_password);
+
+        //mButtonFacebook = findViewById(R.id.button_facebook);
+        //FacebookSdk.sdkInitialize(LoginActivity.this);
+        //callbackManager = CallbackManager.Factory.create();
+        //facebookLogin();
         getSupportActionBar().hide();
+
+//        mButtonFacebook.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loginManager.logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile", "user_birthday"));
+//            }
+//        });
 
         mLoginEmail.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                v.setBackgroundDrawable(ContextCompat.getDrawable(LoginActivity.this, R.drawable.border_rounded_grey));
+                v.setBackgroundDrawable(ContextCompat.getDrawable(LoginActivity.this, R.drawable.border_orange));
                 return false;
             }
         });
@@ -73,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginPassword.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                v.setBackgroundDrawable(ContextCompat.getDrawable(LoginActivity.this, R.drawable.border_rounded_grey));
+                v.setBackgroundDrawable(ContextCompat.getDrawable(LoginActivity.this, R.drawable.border_orange));
                 return false;
             }
         });
@@ -105,10 +133,9 @@ public class LoginActivity extends AppCompatActivity {
         view.startAnimation(shake);
     }
 
-
     private void login() {
         final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Signing you in.", "Please Wait...", false);
-        final String strEmail = mLoginEmail.getText().toString().trim();
+        final String strEmail = mLoginEmail.getText().toString().trim( );
         final String strPassword = mLoginPassword.getText().toString().trim();
 
 
@@ -160,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
-                    params.put("email", strEmail);
+                    params.put("username", strEmail);
                     params.put("password", strPassword);
                     return params;
                 }
@@ -186,5 +213,79 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void facebookLogin() {
+        loginManager = LoginManager.getInstance();
+        callbackManager = CallbackManager.Factory.create();
+
+        loginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                if (object != null) {
+                                    try {
+                                        String name = object.getString("name");
+                                        String email = object.getString("email");
+                                        String fbUserID = object.getString("id");
+
+                                        SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        //TODO: sync subscriptions
+                                        editor.putBoolean(Config.LOGGED_IN_PREF, true);
+                                        editor.putString(Config.USER_EMAIL, name);
+                                        editor.putString(Config.USER_EMAIL, email);
+                                        editor.putString(Config.USER_EMAIL, fbUserID);
+                                        editor.apply();
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
+
+                                        disconnectFromFacebook();
+
+                                        // do action after Facebook login success
+                                        // or call your API
+                                    }
+                                    catch (JSONException | NullPointerException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+                );
+
+                Bundle parameters = new Bundle();
+                parameters.putString(
+                        "fields",
+                        "id, name, email, gender, birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // add this line
+        callbackManager.onActivityResult(
+                requestCode,
+                resultCode,
+                data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
