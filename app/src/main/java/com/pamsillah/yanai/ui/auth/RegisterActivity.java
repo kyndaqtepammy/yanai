@@ -111,13 +111,13 @@ public class RegisterActivity extends AppCompatActivity {
                 // jsonObject = null;  //IDK
                 try {
                     JSONObject  jsonObject = new JSONObject(response);
-                    Boolean error = Boolean.parseBoolean(jsonObject.optString("error"));
-                    String uid = jsonObject.optString("uid");
-                    String name = jsonObject.optString("name");
+                   // Boolean error = Boolean.parseBoolean(jsonObject.optString("error"));
+                    //String uid = jsonObject.optString("uid");
+                    Boolean success = Boolean.parseBoolean(jsonObject.optString("success"));
                     String email = jsonObject.optString("email");
                     String message = jsonObject.optString("message");
                     
-                    if ( !error ) {
+                    if ( success ) {
                         //Creating a shared preference
                         SharedPreferences sharedPreferences = RegisterActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                         Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -158,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("name", name);
+                params.put("firstname", name);
                 params.put("password", password);
                 params.put("username", username);
                 params.put("email", email);
@@ -205,8 +205,8 @@ public class RegisterActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     Log.d(Config.TAG, response.toString());
                     try {
-                        final Boolean error = Boolean.parseBoolean(response.getString("error"));
-                        if ( !error ) {
+                        final Boolean success = Boolean.parseBoolean(response.getString("success"));
+                        if ( success ) {
                             //go to main activity, set shared prefs
                             SharedPreferences sharedPreferences = RegisterActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();

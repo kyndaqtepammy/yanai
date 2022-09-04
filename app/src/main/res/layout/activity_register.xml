@@ -8,10 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/cubfull"/>
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/cubfull"/>-->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -135,6 +135,13 @@
                 android:layout_gravity="center"
                 android:text="Already have an account? Sign in."
                 android:textColor="@color/yanai_orange_light"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-33dp"
+                android:src="@drawable/hippo" />
         </LinearLayout>
     </FrameLayout>
 </ScrollView>

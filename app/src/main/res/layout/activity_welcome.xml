@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/girraffe" />
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:src="@drawable/girraffe" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -48,6 +48,12 @@
                 android:textAllCaps="false"
                 android:textColor="@color/yanai_orange_light" />
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="-4dp"
+                android:src="@drawable/hippo" />
         </RelativeLayout>
     </FrameLayout>
 </LinearLayout>
