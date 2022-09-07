@@ -7,7 +7,8 @@ public class Config {
     public static final String BASE_URL = "http://192.0.1.96:8083/yanai";
     public static final String NODE_URL = "https://admin.yanai.co.uk/wp-json/custom/v1";
     public static final String NODE_IMG_URL = "https://admin.yanai.co.uk/uploads/";
-    public static final String FETCH_BOOKS = "https://admin.yanai.co.uk/wp-json/wp/v2/posts?acf_format=standard";
+    public static final String FETCH_BOOKS = "https://api.yanai.co.uk/wp-json/wp/v2/books?acf_format=standard";
+    public static final String FLASHCARDS_URL = "https://api.yanai.co.uk/wp-json/wp/v2/flashcard?acf_format=standard";
     public static final String LOGIN_URL = NODE_URL + "/login";
     public static final String REGISTER_URL = NODE_URL + "/register";
     public static final String SHARED_PREF_NAME = "yanaiprefs";
