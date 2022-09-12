@@ -44,6 +44,7 @@ import static com.pamsillah.yanai.config.Config.BOOK_PDF_URL;
 import static com.pamsillah.yanai.config.Config.BOOK_PRICE;
 import static com.pamsillah.yanai.config.Config.BOOK_RATING;
 import static com.pamsillah.yanai.config.Config.BOOK_TITLE;
+import static com.pamsillah.yanai.config.Config.FLASH_CATEGORIES;
 import static com.pamsillah.yanai.config.Config.NODE_IMG_URL;
 import static com.pamsillah.yanai.config.Config.TAG;
 
@@ -52,7 +53,8 @@ public class HomeFragment extends Fragment{
     List<ModelBooks> booksList;
     List<ModelFlashcardCategories> flashcatsList;
     RecyclerView mBooksRecycler, mFlashcardCatsRecycler;
-    ModelBooks modelBooks, mModelFlashcardsCats;
+    ModelBooks modelBooks;
+    ModelFlashcardCategories mModelFlashcardsCats;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class HomeFragment extends Fragment{
         mBooksRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         booksList =  new ArrayList<>();
 
-        //Flashcards \set\up
+        //Flashcards setup
         mFlashcardCatsRecycler = root.findViewById(R.id.rv_flashcard_cats);
         mFlashcardCatsRecycler.setHasFixedSize(true);
         mFlashcardCatsRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -162,57 +164,49 @@ public class HomeFragment extends Fragment{
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.FETCH_BOOKS, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.FLASH_CATEGORIES, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
-                Log.d(TAG, response);
+               // Log.d(TAG, response);
 
                 try{
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray books = jsonObject.getJSONArray("books");
+                    JSONArray flashCats = new JSONArray(response);
 
-                    if(books.length() >0 ) {
-                        for(int i=0; i<books.length(); i++) {
-                            JSONObject booksObj = books.getJSONObject(i);
-                            //Log.d(Config.TAG, booksObj.optString("id"));
-                            modelBooks = new ModelBooks(
-                                    booksObj.optString("id"),
-                                    booksObj.optString("title"),
-                                    booksObj.optString("author"),
-                                    booksObj.optString("description"),
-                                    booksObj.optString("cover_url"),
-                                    booksObj.optString("pdf_url"),
-                                    booksObj.optString("date_added"),
-                                    booksObj.optString("price"),
-                                    booksObj.optString("audio_url")
+                    if(flashCats.length() >0 ) {
+                        for(int i=0; i<flashCats.length(); i++) {
+                            JSONObject obj = flashCats.getJSONObject(i);
+                            Log.d(Config.TAG, FLASH_CATEGORIES);
+                            mModelFlashcardsCats = new ModelFlashcardCategories(
+                                    obj.optString("id"),
+                                    obj.optString("name")
                             );
-                            booksList.add(modelBooks);
-                            AdapterBooks adapterBooks = new AdapterBooks(getActivity(), booksList, new AdapterBooks.OnBookItemClickListener() {
-                                @Override
-                                public void onBookItemClick(int position) {
-                                    //Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString(BOOK_ID, booksList.get(position).getBookID());
-                                    bundle.putString(BOOK_TITLE, booksList.get(position).getBookTitle());
-                                    bundle.putString(BOOK_AUTHOR, booksList.get(position).getBookAuthor() );
-                                    bundle.putString(BOOK_DESCR, booksList.get(position).getBookDescr() );
-                                    bundle.putString(BOOK_IMAGE_URL, booksList.get(position).getBookCoverUrl() );
-                                    bundle.putString(BOOK_PDF_URL, booksList.get(position).getBookPdfUrl());
-                                    bundle.putString(BOOK_RATING, "4" );
-                                    bundle.putString(BOOK_PRICE, booksList.get(position).getBookPrice());
-                                    bundle.putString(BOOK_AUDIO, booksList.get(position).getBookAudio());
-
-                                    Fragment bookFragment = new BookviewFragment();
-                                    bookFragment.setArguments(bundle);
-                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                    transaction.replace(R.id.nav_host_fragment, bookFragment ); // give your fragment container id in first parameter
-                                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                                    transaction.commit();
-                                }
-                            });
-                            mBooksRecycler.setAdapter(adapterBooks);
-                            adapterBooks.notifyDataSetChanged();
+                            flashcatsList.add(mModelFlashcardsCats);
+//                            AdapterBooks adapterBooks = new AdapterBooks(getActivity(), booksList, new AdapterBooks.OnBookItemClickListener() {
+//                                @Override
+//                                public void onBookItemClick(int position) {
+//                                    //Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putString(BOOK_ID, booksList.get(position).getBookID());
+//                                    bundle.putString(BOOK_TITLE, booksList.get(position).getBookTitle());
+//                                    bundle.putString(BOOK_AUTHOR, booksList.get(position).getBookAuthor() );
+//                                    bundle.putString(BOOK_DESCR, booksList.get(position).getBookDescr() );
+//                                    bundle.putString(BOOK_IMAGE_URL, booksList.get(position).getBookCoverUrl() );
+//                                    bundle.putString(BOOK_PDF_URL, booksList.get(position).getBookPdfUrl());
+//                                    bundle.putString(BOOK_RATING, "4" );
+//                                    bundle.putString(BOOK_PRICE, booksList.get(position).getBookPrice());
+//                                    bundle.putString(BOOK_AUDIO, booksList.get(position).getBookAudio());
+//
+//                                    Fragment bookFragment = new BookviewFragment();
+//                                    bookFragment.setArguments(bundle);
+//                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                                    transaction.replace(R.id.nav_host_fragment, bookFragment ); // give your fragment container id in first parameter
+//                                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+//                                    transaction.commit();
+//                                }
+//                            });
+//                            mBooksRecycler.setAdapter(adapterBooks);
+//                            adapterBooks.notifyDataSetChanged();
                         }
                     }
                 }catch (Exception e) {

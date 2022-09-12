@@ -15,13 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" android:installLocation="auto">
         <activity android:name=".ui.onboarding.SlideActivity">
 
         </activity>
         <activity android:name=".ui.auth.LoginActivity" android:label="@string/title_activity_login"/>
 
-        <activity android:name=".ui.auth.WelcomeActivity">
+        <activity android:name=".ui.auth.WelcomeActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
