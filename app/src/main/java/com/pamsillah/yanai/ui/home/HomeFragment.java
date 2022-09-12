@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.pamsillah.yanai.R;
 import com.pamsillah.yanai.adapters.AdapterBooks;
+import com.pamsillah.yanai.adapters.AdapterFlashCategories;
 import com.pamsillah.yanai.config.Config;
 import com.pamsillah.yanai.models.ModelBooks;
 import com.pamsillah.yanai.models.ModelFlashcardCategories;
@@ -168,45 +169,24 @@ public class HomeFragment extends Fragment{
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
-               // Log.d(TAG, response);
-
                 try{
                     JSONArray flashCats = new JSONArray(response);
-
                     if(flashCats.length() >0 ) {
                         for(int i=0; i<flashCats.length(); i++) {
                             JSONObject obj = flashCats.getJSONObject(i);
-                            Log.d(Config.TAG, FLASH_CATEGORIES);
                             mModelFlashcardsCats = new ModelFlashcardCategories(
                                     obj.optString("id"),
                                     obj.optString("name")
                             );
                             flashcatsList.add(mModelFlashcardsCats);
-//                            AdapterBooks adapterBooks = new AdapterBooks(getActivity(), booksList, new AdapterBooks.OnBookItemClickListener() {
-//                                @Override
-//                                public void onBookItemClick(int position) {
-//                                    //Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
-//                                    Bundle bundle = new Bundle();
-//                                    bundle.putString(BOOK_ID, booksList.get(position).getBookID());
-//                                    bundle.putString(BOOK_TITLE, booksList.get(position).getBookTitle());
-//                                    bundle.putString(BOOK_AUTHOR, booksList.get(position).getBookAuthor() );
-//                                    bundle.putString(BOOK_DESCR, booksList.get(position).getBookDescr() );
-//                                    bundle.putString(BOOK_IMAGE_URL, booksList.get(position).getBookCoverUrl() );
-//                                    bundle.putString(BOOK_PDF_URL, booksList.get(position).getBookPdfUrl());
-//                                    bundle.putString(BOOK_RATING, "4" );
-//                                    bundle.putString(BOOK_PRICE, booksList.get(position).getBookPrice());
-//                                    bundle.putString(BOOK_AUDIO, booksList.get(position).getBookAudio());
-//
-//                                    Fragment bookFragment = new BookviewFragment();
-//                                    bookFragment.setArguments(bundle);
-//                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                                    transaction.replace(R.id.nav_host_fragment, bookFragment ); // give your fragment container id in first parameter
-//                                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-//                                    transaction.commit();
-//                                }
-//                            });
-//                            mBooksRecycler.setAdapter(adapterBooks);
-//                            adapterBooks.notifyDataSetChanged();
+                            AdapterFlashCategories adapterFlashCategories = new AdapterFlashCategories(getActivity(), new AdapterFlashCategories.OnFlashcatItemClickListener() {
+                                @Override
+                                public void onFlashcatItemClicked(int position) {
+                                    Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+                                }
+                            }, flashcatsList);
+                            mFlashcardCatsRecycler.setAdapter(adapterFlashCategories);
+                            adapterFlashCategories.notifyDataSetChanged();
                         }
                     }
                 }catch (Exception e) {
