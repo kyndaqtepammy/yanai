@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,7 @@ public class AdapterFlashCategories  extends RecyclerView.Adapter<AdapterFlashCa
     @Override
     public void onBindViewHolder(@NonNull FlashCatsVH holder, int position) {
         final ModelFlashcardCategories modelFlashcardCategories = flashcardCategoriesList.get(position);
+        //holder.onFlashcatItemClickListener.onFlashcatItemClicked(position);
         holder.flash_cat_name.setText(modelFlashcardCategories.getCategoryName());
     }
 
@@ -51,10 +53,9 @@ public class AdapterFlashCategories  extends RecyclerView.Adapter<AdapterFlashCa
         public FlashCatsVH(@NonNull View itemView) {
             super(itemView);
             flash_cat_name = itemView.findViewById(R.id.flashcatname);
-
+            this.onFlashcatItemClickListener = itemClickListener;
             itemView.setOnClickListener(this);
         }
-
 
         @Override
         public void onClick(View v) {

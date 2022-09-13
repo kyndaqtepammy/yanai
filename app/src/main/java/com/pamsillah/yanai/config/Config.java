@@ -32,6 +32,7 @@ public class Config {
     public static final String BOOK_AUDIO = "book_audio";
     public static final String READ_LOCAL_PDF_CODE = "1";
     public static final String PDFNMAE = "pdfname";
+    public static final String CLICKED_FLASH_CATEGORY = "clicked_flashcat";
 
     //PAYPAL
     public static final String PAYPAL_CLIENT_ID = "AfnEiPAbeK7mwlfnGv2U7K3bqBrgX30fhtBuA9RHl4BREqg9jDJ9Yhneaw8W4tWnyfXaksBjCXGs5HsU";

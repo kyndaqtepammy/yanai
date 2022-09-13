@@ -29,6 +29,7 @@ import com.pamsillah.yanai.config.Config;
 import com.pamsillah.yanai.models.ModelBooks;
 import com.pamsillah.yanai.models.ModelFlashcardCategories;
 import com.pamsillah.yanai.ui.detailviews.BookviewFragment;
+import com.pamsillah.yanai.ui.flashcards.FragmentFlashcards;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -170,7 +171,7 @@ public class HomeFragment extends Fragment{
             public void onResponse(String response) {
                 progressDialog.dismiss();
                 try{
-                    JSONArray flashCats = new JSONArray(response);
+                    final JSONArray flashCats = new JSONArray(response);
                     if(flashCats.length() >0 ) {
                         for(int i=0; i<flashCats.length(); i++) {
                             JSONObject obj = flashCats.getJSONObject(i);
@@ -182,7 +183,16 @@ public class HomeFragment extends Fragment{
                             AdapterFlashCategories adapterFlashCategories = new AdapterFlashCategories(getActivity(), new AdapterFlashCategories.OnFlashcatItemClickListener() {
                                 @Override
                                 public void onFlashcatItemClicked(int position) {
-                                    Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString(Config.CLICKED_FLASH_CATEGORY, flashcatsList.get(position).getCategoryName());
+
+
+                                    Fragment flashcardsFragment = new FragmentFlashcards();
+                                    flashcardsFragment.setArguments(bundle);
+                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                    transaction.replace(R.id.nav_host_fragment, flashcardsFragment ); // give your fragment container id in first parameter
+                                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                                    transaction.commit();
                                 }
                             }, flashcatsList);
                             mFlashcardCatsRecycler.setAdapter(adapterFlashCategories);
