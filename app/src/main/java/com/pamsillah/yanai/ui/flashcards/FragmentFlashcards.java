@@ -2,79 +2,128 @@ package com.pamsillah.yanai.ui.flashcards;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.pamsillah.yanai.MainActivity;
 import com.pamsillah.yanai.R;
 import com.pamsillah.yanai.adapters.FlashcardsViewPagerAdapter;
+import com.pamsillah.yanai.config.Config;
 import com.pamsillah.yanai.models.ModelFlashcards;
+import com.pamsillah.yanai.utils.CustomVolleyRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.pamsillah.yanai.ui.onboarding.SlideActivity.viewPager;
 
 //https://www.sanktips.com/2017/10/15/how-to-fetch-images-from-server-to-image-slider-with-viewpager-in-android-studio/
 public class FragmentFlashcards extends Fragment {
     private ViewPager pager = null;
     private FlashcardsViewPagerAdapter pagerAdapter = null;
     RequestQueue rq;
-    List<ModelFlashcards> sliderImg;
-    String request_url = "http://localhost/sliderjsonoutput.php";
+    List<ModelFlashcards> sliderImg = new ArrayList<>();
+    LinearLayout sliderDotspanel;
+    private int dotscount;
+    private ImageView[] dots;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_flashcards, container, false);
-       // pagerAdapter = new FlashcardsViewPagerAdapter();
+        sliderDotspanel = (LinearLayout) root.findViewById(R.id.SliderDots);
         pager = root.findViewById(R.id.flashcards_view_pager);
         pager.setAdapter(pagerAdapter);
+        sendRequest();
 
-        // Create an initial view to display; must be a subclass of FrameLayout.
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        FrameLayout v0 = (FrameLayout) layoutInflater.inflate (R.layout.one_of_my_page_layouts, null);
-        pagerAdapter.addView (v0, 0);
-        pagerAdapter.notifyDataSetChanged();
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+                for(int i = 0; i< dotscount; i++){
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+                }
+                dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_button));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         return root;
     }
 
-    //-----------------------------------------------------------------------------
-    // Here's what the app should do to add a view to the ViewPager.
-    public void addView (View newPage)
-    {
-        int pageIndex = pagerAdapter.addView (newPage);
-        // You might want to make "newPage" the currently displayed page:
-        pager.setCurrentItem (pageIndex, true);
-    }
 
-    //-----------------------------------------------------------------------------
-    // Here's what the app should do to remove a view from the ViewPager.
-    public void removeView (View defunctPage)
-    {
-        int pageIndex = pagerAdapter.removeView (pager, defunctPage);
-        // You might want to choose what page to display, if the current page was "defunctPage".
-        if (pageIndex == pagerAdapter.getCount())
-            pageIndex--;
-        pager.setCurrentItem (pageIndex);
-    }
+    public void sendRequest(){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "https://api.yanai.co.uk/wp-json/custom/v1/flashcards?slug=clothing", null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d(Config.TAG, response.toString());
+                for(int i = 0; i < response.length(); i++){
+                    try {
+                    ModelFlashcards  sliderUtils = new ModelFlashcards(
+                                    response.getJSONObject(i).optString("ID"),
+                                    response.getJSONObject(i).optString("date"),
+                                    response.getJSONObject(i).optString("slug"),
+                                    response.getJSONObject(i).optString("rendered"),
+                                    response.getJSONObject(i).optString("id"),
+                                    response.getJSONObject(i).optString("id"),
+                                    response.getJSONObject(i).optString("id"),
+                                    response.getJSONObject(i).optString("id")
+                            );
+                        sliderUtils.setFlashCardImage("https://dummyimage.com/600x400/000/464fcc");
+                        sliderImg.add(sliderUtils);
 
-    //-----------------------------------------------------------------------------
-    // Here's what the app should do to get the currently displayed page.
-    public View getCurrentPage ()
-    {
-        return pagerAdapter.getView (pager.getCurrentItem());
-    }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
 
-    //-----------------------------------------------------------------------------
-    // Here's what the app should do to set the currently displayed page.  "pageToShow" must
-    // currently be in the adapter, or this will crash.
-    public void setCurrentPage (View pageToShow)
-    {
-        pager.setCurrentItem (pagerAdapter.getItemPosition (pageToShow), true);
+                pagerAdapter = new FlashcardsViewPagerAdapter(getActivity(), sliderImg);
+
+                pager.setAdapter(pagerAdapter);
+                dotscount = pagerAdapter.getCount();
+                dots = new ImageView[dotscount];
+                Log.d(Config.TAG, String.valueOf(dotscount));
+                for(int i = 0; i < dotscount; i++){
+                    dots[i] = new ImageView(getActivity());
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(8, 0, 8, 0);
+                    sliderDotspanel.addView(dots[i], params);
+                }
+               dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_button));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(Config.TAG, error.toString());
+            }
+        });
+        CustomVolleyRequest.getInstance(getActivity()).addToRequestQueue(jsonArrayRequest);
     }
 }
+
