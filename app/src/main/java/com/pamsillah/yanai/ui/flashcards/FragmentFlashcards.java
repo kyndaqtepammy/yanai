@@ -52,7 +52,7 @@ public class FragmentFlashcards extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_flashcards, container, false);
-        sliderDotspanel = (LinearLayout) root.findViewById(R.id.SliderDots);
+        sliderDotspanel =  root.findViewById(R.id.SliderDots);
         pager = root.findViewById(R.id.flashcards_view_pager);
         pager.setAdapter(pagerAdapter);
         sendRequest();
@@ -64,7 +64,7 @@ public class FragmentFlashcards extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 for(int i = 0; i< dotscount; i++){
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_active_dot));
                 }
                 dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_button));
             }
@@ -85,7 +85,7 @@ public class FragmentFlashcards extends Fragment {
                 for(int i = 0; i < response.length(); i++){
                     try {
                     ModelFlashcards  sliderUtils = new ModelFlashcards(
-                                    response.getJSONObject(i).optString("ID"),
+                                    response.getJSONObject(i).optString("flashcard_image"),
                                     response.getJSONObject(i).optString("date"),
                                     response.getJSONObject(i).optString("slug"),
                                     response.getJSONObject(i).optString("rendered"),
@@ -94,7 +94,7 @@ public class FragmentFlashcards extends Fragment {
                                     response.getJSONObject(i).optString("id"),
                                     response.getJSONObject(i).optString("id")
                             );
-                        sliderUtils.setFlashCardImage("https://dummyimage.com/600x400/000/464fcc");
+                        sliderUtils.setFlashCardImage(sliderUtils.getFlashCardImage());
                         sliderImg.add(sliderUtils);
 
                     } catch (JSONException e) {
@@ -110,7 +110,7 @@ public class FragmentFlashcards extends Fragment {
                 Log.d(Config.TAG, String.valueOf(dotscount));
                 for(int i = 0; i < dotscount; i++){
                     dots[i] = new ImageView(getActivity());
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_border_primary));
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     params.setMargins(8, 0, 8, 0);
                     sliderDotspanel.addView(dots[i], params);

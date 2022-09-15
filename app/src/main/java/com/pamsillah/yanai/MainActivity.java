@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
        // getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_profile);
-        getSupportActionBar().hide();
+        getSupportActionBar().show();
         if (Build.VERSION.SDK_INT < 16) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
