@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.pamsillah.yanai.config.Config.CLICKED_FLASH_CATEGORY;
 import static com.pamsillah.yanai.ui.onboarding.SlideActivity.viewPager;
 
 //https://www.sanktips.com/2017/10/15/how-to-fetch-images-from-server-to-image-slider-with-viewpager-in-android-studio/
@@ -52,10 +53,11 @@ public class FragmentFlashcards extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_flashcards, container, false);
-        sliderDotspanel =  root.findViewById(R.id.SliderDots);
+        String slug = getArguments().getString(CLICKED_FLASH_CATEGORY);
+        //sliderDotspanel =  root.findViewById(R.id.SliderDots);
         pager = root.findViewById(R.id.flashcards_view_pager);
         pager.setAdapter(pagerAdapter);
-        sendRequest();
+        sendRequest(slug);
 
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -77,8 +79,8 @@ public class FragmentFlashcards extends Fragment {
     }
 
 
-    public void sendRequest(){
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "https://api.yanai.co.uk/wp-json/custom/v1/flashcards?slug=clothing", null, new Response.Listener<JSONArray>() {
+    public void sendRequest(String slug){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "https://api.yanai.co.uk/wp-json/custom/v1/flashcards?slug="+slug, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.d(Config.TAG, response.toString());
@@ -108,14 +110,14 @@ public class FragmentFlashcards extends Fragment {
                 dotscount = pagerAdapter.getCount();
                 dots = new ImageView[dotscount];
                 Log.d(Config.TAG, String.valueOf(dotscount));
-                for(int i = 0; i < dotscount; i++){
-                    dots[i] = new ImageView(getActivity());
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_border_primary));
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(8, 0, 8, 0);
-                    sliderDotspanel.addView(dots[i], params);
-                }
-               dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_button));
+//                for(int i = 0; i < dotscount; i++){
+//                    dots[i] = new ImageView(getActivity());
+//                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_border_primary));
+//                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                    params.setMargins(8, 0, 8, 0);
+//                    sliderDotspanel.addView(dots[i], params);
+//                }
+//               dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_button));
             }
         }, new Response.ErrorListener() {
             @Override

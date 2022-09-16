@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +31,7 @@ import com.pamsillah.yanai.models.ModelBooks;
 import com.pamsillah.yanai.models.ModelFlashcardCategories;
 import com.pamsillah.yanai.ui.detailviews.BookviewFragment;
 import com.pamsillah.yanai.ui.flashcards.FragmentFlashcards;
+import com.pamsillah.yanai.utils.SimpleDividerItemDecoration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -61,6 +63,7 @@ public class HomeFragment extends Fragment{
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        RecyclerView.ItemDecoration itemDecoration = new SimpleDividerItemDecoration(20);
         mBooksRecycler = root.findViewById(R.id.rv_fave_books);
         mBooksRecycler.setHasFixedSize(true);
         mBooksRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -68,8 +71,11 @@ public class HomeFragment extends Fragment{
 
         //Flashcards setup
         mFlashcardCatsRecycler = root.findViewById(R.id.rv_flashcard_cats);
+        mFlashcardCatsRecycler.addItemDecoration(itemDecoration);
+
         mFlashcardCatsRecycler.setHasFixedSize(true);
         mFlashcardCatsRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+
         flashcatsList = new ArrayList<>();
 
         fetchFlashCats();
