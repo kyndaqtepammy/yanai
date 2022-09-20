@@ -15,6 +15,7 @@ public class Config {
     public static final String SHARED_PREF_NAME = "yanaiprefs";
     public static final String LOGGED_IN_PREF = "loggedin";
     public static final String USER_EMAIL = "userEmail";
+    public static final String WELCOME_SCREEN_VIEWED = "viewed";
     //for the backend file keys
     public static final String KEY_NAME = "name";
     public static final String KEY_USERNAME = "username";

@@ -37,7 +37,6 @@ import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.pamsillah.yanai.config.Config.CLICKED_FLASH_CATEGORY;
-import static com.pamsillah.yanai.ui.onboarding.SlideActivity.viewPager;
 
 //https://www.sanktips.com/2017/10/15/how-to-fetch-images-from-server-to-image-slider-with-viewpager-in-android-studio/
 public class FragmentFlashcards extends Fragment {

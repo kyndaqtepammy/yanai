@@ -59,6 +59,9 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'org.jetbrains:annotations-java5:15.0'
+    //onboarding
+    implementation 'com.ramotion.paperonboarding:paper-onboarding:1.1.3'
+
 
 
 }

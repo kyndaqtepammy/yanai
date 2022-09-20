@@ -5,30 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnGetStarted"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_background"
-        android:text="Get Started"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/btnGetStarted"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:background="@drawable/rounded_background"-->
+<!--        android:text="Get Started"-->
+<!--        android:textAllCaps="false"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="278dp"
+        android:layout_height="428dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.110000014"
+        app:layout_constraintVertical_bias="0.151"
         app:srcCompat="@drawable/book1" />
 
     <ImageView
@@ -43,14 +43,16 @@
 
     <ImageView
         android:id="@+id/ind2"
-        android:layout_width="15dp"
-        android:layout_height="0dp"
+        android:layout_width="109dp"
+        android:layout_height="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/ind3"
         app:layout_constraintEnd_toEndOf="@+id/ind3"
+        app:layout_constraintHorizontal_bias="0.306"
         app:layout_constraintStart_toStartOf="@+id/ind1"
         app:layout_constraintTop_toTopOf="@+id/ind3"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/selected" />
 
     <ImageView
@@ -83,7 +85,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="76dp"
         android:layout_marginBottom="80dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnGetStarted"
         app:layout_constraintEnd_toStartOf="@+id/ind4"
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:srcCompat="@drawable/selected" />
@@ -127,11 +128,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="45dp"
         android:gravity="center"
         android:text="This is random text taking from lorem ipsum tesing puspose"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -140,6 +142,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
