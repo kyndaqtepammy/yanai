@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.pamsillah.yanai.MainActivity;
 import com.pamsillah.yanai.R;
+import com.pamsillah.yanai.adapters.OnboardPagerAdapter;
 import com.pamsillah.yanai.adapters.SlideViewPagerAdapter;
 import com.pamsillah.yanai.config.Config;
 import com.pamsillah.yanai.ui.auth.WelcomeActivity;
@@ -25,9 +26,8 @@ import com.ramotion.paperonboarding.PaperOnboardingPage;
 import java.util.ArrayList;
 
 public class SlideActivity extends AppCompatActivity {
-    private FragmentManager fragmentManager;
-
     private boolean welcomeScreenViewed = false;
+    ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,45 +35,13 @@ public class SlideActivity extends AppCompatActivity {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_slide);
+        viewPager = findViewById(R.id.onboard_viewpager);
+        viewPager.setAdapter(new OnboardPagerAdapter(this));
 
-        fragmentManager = getSupportFragmentManager();
-
-        // new instance is created and data is took from an
-        // array list known as getDataonborading
-        final PaperOnboardingFragment paperOnboardingFragment = PaperOnboardingFragment.newInstance(getDataforOnboarding());
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        // fragmentTransaction method is used
-        // do all the transactions or changes
-        // between different fragments
-        fragmentTransaction.add(R.id.frame_layout, paperOnboardingFragment);
-
-        // all the changes are committed
-        fragmentTransaction.commit();
 
     }
-    private ArrayList<PaperOnboardingPage> getDataforOnboarding() {
 
-        // the first string is to show the main title ,
-        // second is to show the message below the
-        // title, then color of background is passed ,
-        // then the image to show on the screen is passed
-        // and at last icon to navigate from one screen to other
-        PaperOnboardingPage source = new PaperOnboardingPage("Gfg", "Welcome to GeeksForGeeks", Color.parseColor("#7dabd0"),R.drawable.lion, R.drawable.ic_action_back);
-        PaperOnboardingPage source1 = new PaperOnboardingPage("Practice", "Practice questions from all topics", Color.parseColor("#fbc1ad"),R.drawable.ladybug, R.drawable.ic_action_heart);
-        PaperOnboardingPage source2 = new PaperOnboardingPage("", " ", Color.parseColor("#ffb6c1"),R.drawable.girraffee, R.drawable.ic_action_profile);
 
-        // array list is used to store
-        // data of onbaording screen
-        ArrayList<PaperOnboardingPage> elements = new ArrayList<>();
-
-        // all the sources(data to show on screens)
-        // are added to array list
-        elements.add(source);
-        elements.add(source1);
-        elements.add(source2);
-        return elements;
-    }
     @Override
     protected void onPostResume() {
         super.onPostResume();

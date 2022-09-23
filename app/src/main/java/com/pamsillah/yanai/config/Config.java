@@ -14,6 +14,7 @@ public class Config {
     public static final String FLASH_CATEGORIES = "https://api.yanai.co.uk/wp-json/wp/v2/flash_cats";
     public static final String SHARED_PREF_NAME = "yanaiprefs";
     public static final String LOGGED_IN_PREF = "loggedin";
+    public static final String LANGUAGE_PREF = "language";
     public static final String USER_EMAIL = "userEmail";
     public static final String WELCOME_SCREEN_VIEWED = "viewed";
     //for the backend file keys
@@ -40,6 +41,8 @@ public class Config {
 
     //PAYMENT PREFS
     public static final String PAYMENT_PREFS = "payment_prefs";
+    public static final String LANGUAGE_SHONA = "Shona";
+    public static final String LANGUAGE_NDEBELE = "Ndebele";
 
     //media player
     public static MediaPlayer MEDIA_PLAYER = new MediaPlayer();
