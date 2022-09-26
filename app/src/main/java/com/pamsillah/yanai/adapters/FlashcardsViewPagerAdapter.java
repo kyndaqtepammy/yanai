@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,9 +50,11 @@ public class FlashcardsViewPagerAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.custom_layout_flashcard, null);
         ModelFlashcards utils = sliderImg.get(position);
-        ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+        ImageView imageView = view.findViewById(R.id.imageView);
+        TextView txtWord = view.findViewById(R.id.word);
+        txtWord.setText(sliderImg.get(position).getFlashCardsTitle());
         imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
-        imageLoader.get(utils.getFlashCardImage(), ImageLoader.getImageListener(imageView, R.drawable.bluemascot2, android.R.drawable.ic_dialog_alert));
+        imageLoader.get(utils.getFlashCardImage(), ImageLoader.getImageListener(imageView, R.drawable.ic_replay_10_black_24dp, android.R.drawable.ic_dialog_alert));
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

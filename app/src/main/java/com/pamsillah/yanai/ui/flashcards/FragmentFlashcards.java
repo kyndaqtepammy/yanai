@@ -64,10 +64,10 @@ public class FragmentFlashcards extends Fragment {
             }
             @Override
             public void onPageSelected(int position) {
-                for(int i = 0; i< dotscount; i++){
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_active_dot));
-                }
-                dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_button));
+//                for(int i = 0; i< dotscount; i++){
+//                    dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_active_dot));
+//                }
+//                dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_button));
             }
 
             @Override

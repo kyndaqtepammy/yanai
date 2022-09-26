@@ -36,7 +36,7 @@ public class SlideActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_slide);
         viewPager = findViewById(R.id.onboard_viewpager);
-        viewPager.setAdapter(new OnboardPagerAdapter(this));
+        viewPager.setAdapter(new SlideViewPagerAdapter(getSupportFragmentManager()));
 
 
     }
