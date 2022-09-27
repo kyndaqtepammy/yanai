@@ -3,30 +3,44 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:padding="40dp"
     android:gravity="center">
-
-
 
     <ImageView
         android:id="@+id/onboardImg3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="40dp"
         android:src="@drawable/parrot" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose a language"
         android:textSize="28sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/gray"
         android:textStyle="bold"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:id="@+id/onboardTitle3" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="The point of that it making it look like readable English."-->
+<!--        android:textSize="18sp"-->
+<!--        android:textColor="@android:color/darker_gray"-->
+<!--        android:textAlignment="center"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:id="@+id/onboardSubTitle3" />-->
+
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rg_lang"
-        android:gravity="center">
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal">
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,17 +56,19 @@
             android:textSize="20sp"/>
     </RadioGroup>
 
+
+
     <TextView
         android:id="@+id/txt_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:gravity="bottom"
         android:minLines="2"
         android:padding="@dimen/activity_horizontal_margin"
         android:text="Finish"
-        android:textColor="@android:color/black"
+        android:textColor="@color/deepskyblue"
         android:textSize="20sp"
         android:textStyle="bold" />
+
 
 </LinearLayout>

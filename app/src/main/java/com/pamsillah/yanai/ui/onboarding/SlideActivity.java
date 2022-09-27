@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -38,6 +39,23 @@ public class SlideActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.onboard_viewpager);
         viewPager.setAdapter(new SlideViewPagerAdapter(getSupportFragmentManager()));
 
+viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
+    @Override
+    public void transformPage(View view, float position) {
+        int pageWidth = view.getWidth();
+        int pageHeight = view.getHeight();
+
+        if (position < -1) { // [-Infinity,-1)
+            // This page is way off-screen to the left.
+            view.setAlpha(0);
+        } else if(position <= 1){ // Page to the left, page centered, page to the right
+            // modify page view animations here for pages in view
+        } else { // (1,+Infinity]
+            // This page is way off-screen to the right.
+            view.setAlpha(0);
+        }
+    }
+});
 
     }
 

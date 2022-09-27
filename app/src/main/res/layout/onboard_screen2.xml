@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@android:color/holo_blue_dark"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:padding="40dp"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/onboardImg3"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/bunny" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Second View"
-        android:layout_gravity="center_horizontal"
+        android:text="Lorem ipsum dolor sit ame"
         android:textSize="28sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/gray"
         android:textStyle="bold"
-        android:layout_centerVertical="true"
+        android:textAlignment="center"
         android:layout_centerHorizontal="true"
-        android:id="@+id/onboardTitle2" />
-
+        android:id="@+id/onboardTitle3" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Swipe left to View"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:minLines="2"
-        android:id="@+id/textView2"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="The point of that it making it look like readable English."
+        android:textSize="18sp"
+        android:textColor="@android:color/darker_gray"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:id="@+id/onboardSubTitle3" />
+
+
 
     <TextView
+        android:id="@+id/txt_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Swipe right to\nThird View"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:padding="@dimen/activity_horizontal_margin"
+        android:gravity="bottom"
         android:minLines="2"
-        android:id="@+id/textView3"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="Next"
+        android:textColor="@color/av_green"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-</RelativeLayout>
+
+</LinearLayout>

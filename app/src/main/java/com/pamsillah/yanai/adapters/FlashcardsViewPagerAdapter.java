@@ -1,6 +1,9 @@
 package com.pamsillah.yanai.adapters;
 
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +17,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.pamsillah.yanai.R;
+import com.pamsillah.yanai.config.Config;
 import com.pamsillah.yanai.models.ModelFlashcards;
 import com.pamsillah.yanai.utils.CustomVolleyRequest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,20 +57,17 @@ public class FlashcardsViewPagerAdapter extends PagerAdapter {
         ModelFlashcards utils = sliderImg.get(position);
         ImageView imageView = view.findViewById(R.id.imageView);
         TextView txtWord = view.findViewById(R.id.word);
+        ImageView play_btn = view.findViewById(R.id.play_flash_audio);
         txtWord.setText(sliderImg.get(position).getFlashCardsTitle());
         imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
         imageLoader.get(utils.getFlashCardImage(), ImageLoader.getImageListener(imageView, R.drawable.ic_replay_10_black_24dp, android.R.drawable.ic_dialog_alert));
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(position == 0){
-                    Toast.makeText(context, String.valueOf(sliderImg.size()), Toast.LENGTH_SHORT).show();
-                } else if(position == 1){
-                    Toast.makeText(context, "Slide 2 Clicked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, "Slide 3 Clicked", Toast.LENGTH_SHORT).show();
-                }
 
+        play_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context,sliderImg.get(position).getFlashCardShonaAudio() , Toast.LENGTH_LONG).show();
+                playAudio(sliderImg.get(position).getFlashCardShonaAudio());
+                Log.d(Config.TAG, sliderImg.get(position).getFlashCardShonaAudio());
             }
         });
 
@@ -80,6 +82,33 @@ public class FlashcardsViewPagerAdapter extends PagerAdapter {
         View view = (View) object;
         vp.removeView(view);
 
+    }
+
+    private void playAudio(String url) {
+        MediaPlayer mediaPlayer;
+        String audioUrl = url;
+
+        // initializing media player
+        mediaPlayer = new MediaPlayer();
+
+        // below line is use to set the audio
+        // stream type for our media player.
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        // below line is use to set our
+        // url to our media player.
+        try {
+            mediaPlayer.setDataSource(audioUrl);
+            // below line is use to prepare
+            // and start our media player.
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // below line is use to display a toast message.
+        Toast.makeText(context, "Audio started playing..", Toast.LENGTH_SHORT).show();
     }
 
 }

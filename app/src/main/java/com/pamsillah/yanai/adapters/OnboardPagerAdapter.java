@@ -37,9 +37,9 @@ public class OnboardPagerAdapter extends PagerAdapter {
 
         TextView txtStep1, txtStep2, txtFinish;
         RadioGroup rgLanguages;
-        rgLanguages = view.findViewById(R.id.rg_lang);
-        txtStep1 = view.findViewById(R.id.txt_step_1);
-        txtFinish = view.findViewById(R.id.txt_finish);
+//        rgLanguages = view.findViewById(R.id.rg_lang);
+//        txtStep1 = view.findViewById(R.id.txt_step_1);
+//        txtFinish = view.findViewById(R.id.txt_finish);
 
 //        rgLanguages.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 //            @Override
@@ -57,18 +57,18 @@ public class OnboardPagerAdapter extends PagerAdapter {
 //            }
 //        });
 
-        txtFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences sharedPreferences = mContext.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                //TODO: sync subscriptions
-                editor.putString(Config.LANGUAGE_PREF, languageString);
-                editor.apply();
-                Intent intent = new Intent(view.getContext(), MainActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
+//        txtFinish.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                SharedPreferences sharedPreferences = mContext.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                //TODO: sync subscriptions
+//                editor.putString(Config.LANGUAGE_PREF, languageString);
+//                editor.apply();
+//                Intent intent = new Intent(view.getContext(), MainActivity.class);
+//                view.getContext().startActivity(intent);
+//            }
+//        });
 
         ViewGroup layout = (ViewGroup) inflater.inflate(modelOnboard.getLayoutResId(), container, false);
         container.addView(layout);

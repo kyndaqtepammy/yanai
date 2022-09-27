@@ -85,15 +85,19 @@ public class FragmentFlashcards extends Fragment {
                 Log.d(Config.TAG, response.toString());
                 for(int i = 0; i < response.length(); i++){
                     try {
+                       // Log.d(Config.TAG, response.getJSONObject(i).getJSONArray("shona_word").toString());
                     ModelFlashcards  sliderUtils = new ModelFlashcards(
-                                    response.getJSONObject(i).optString("flashcard_image"),
-                                    response.getJSONObject(i).optString("date"),
-                                    response.getJSONObject(i).optString("slug"),
-                                    response.getJSONObject(i).optString("rendered"),
-                                    response.getJSONObject(i).optString("id"),
-                                    response.getJSONObject(i).optString("id"),
-                                    response.getJSONObject(i).optString("id"),
-                                    response.getJSONObject(i).optString("id")
+                            response.getJSONObject(i).optString("flashcard_image"),
+                            response.getJSONObject(i).optString("title"),
+                            response.getJSONObject(i).optString("id"),
+                            response.getJSONObject(i).optString("english_audio"),
+                            response.getJSONObject(i).optString("ndebele_audio"),
+                            response.getJSONObject(i).optString("shona_audio"),
+                            response.getJSONObject(i).getJSONArray("english_word").toString(),
+                            response.getJSONObject(i).getJSONArray("ndebele_word").toString(),
+                            response.getJSONObject(i).getJSONArray("shona_word").toString(),
+                            response.getJSONObject(i).optString("slug"),
+                            response.getJSONObject(i).optString("date_published")
                             );
                         sliderUtils.setFlashCardImage(sliderUtils.getFlashCardImage());
                         sliderImg.add(sliderUtils);

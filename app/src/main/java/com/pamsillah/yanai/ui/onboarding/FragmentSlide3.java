@@ -30,7 +30,6 @@ public class FragmentSlide3 extends Fragment {
         View view = inflater.inflate(R.layout.onboard_screen3, container, false);
 
         rgLanguages = view.findViewById(R.id.rg_lang);
-        txtStep1 = view.findViewById(R.id.txt_step_1);
         txtFinish = view.findViewById(R.id.txt_finish);
 
         txtFinish.setOnClickListener(new View.OnClickListener() {

@@ -18,6 +18,7 @@
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/drawable/rounded_border_primary.xml" value="0.2535" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/drawable/rounded_button.xml" value="0.2535" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/drawable/shadow_background.xml" value="0.1755" />
+        <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/activity_main.xml" value="0.190625" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/activity_onboarding.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/activity_slide.xml" value="0.259963768115942" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/activity_welcome.xml" value="0.259963768115942" />
@@ -25,7 +26,7 @@
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/custom_layout_flashcard.xml" value="0.29030797101449274" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/fragment_flashcards.xml" value="0.2" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/onboard_screen1.xml" value="0.18958333333333333" />
+        <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/onboard_screen1.xml" value="0.25" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/onboard_screen2.xml" value="0.18958333333333333" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/onboard_screen3.xml" value="0.18958333333333333" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/one_of_my_page_layouts.xml" value="0.2189207650273224" />
