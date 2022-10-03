@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.navigation_download:
-                Toast.makeText(MainActivity.this, "Download", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.navigation_download:
+//                Toast.makeText(MainActivity.this, "Download", Toast.LENGTH_SHORT).show();
+//                break;
             case R.id.navigation_login:
                 //Toast.makeText(MainActivity.this, "Logout", Toast.LENGTH_SHORT).show();
                 SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);

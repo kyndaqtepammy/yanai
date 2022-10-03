@@ -32,12 +32,28 @@ public class FragmentSlide3 extends Fragment {
         rgLanguages = view.findViewById(R.id.rg_lang);
         txtFinish = view.findViewById(R.id.txt_finish);
 
+        rgLanguages.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.lang_ndebele:
+                        languageString = Config.LANGUAGE_NDEBELE;
+                        break;
+                    case R.id.lang_shona:
+                        languageString = Config.LANGUAGE_SHONA;
+                        break;
+                    default:
+                        languageString = Config.LANGUAGE_NDEBELE;
+                }
+            }
+        });
+
         txtFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Taosted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), languageString, Toast.LENGTH_SHORT).show();
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+                SharedPreferences.Editor editor = sharedPreferences.edit();//shona is "2", ndebele is "1"
                 //TODO: sync subscriptions
                 editor.putString(Config.LANGUAGE_PREF, languageString);
                 editor.apply();

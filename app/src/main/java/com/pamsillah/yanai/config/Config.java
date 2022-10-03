@@ -39,10 +39,10 @@ public class Config {
     //PAYPAL
     public static final String PAYPAL_CLIENT_ID = "AfnEiPAbeK7mwlfnGv2U7K3bqBrgX30fhtBuA9RHl4BREqg9jDJ9Yhneaw8W4tWnyfXaksBjCXGs5HsU";
 
-    //PAYMENT PREFS
+    //PAYMENT AND LANGUAGE PREFS
     public static final String PAYMENT_PREFS = "payment_prefs";
-    public static final String LANGUAGE_SHONA = "Shona";
     public static final String LANGUAGE_NDEBELE = "Ndebele";
+    public static final String LANGUAGE_SHONA = "Shona";
 
     //media player
     public static MediaPlayer MEDIA_PLAYER = new MediaPlayer();

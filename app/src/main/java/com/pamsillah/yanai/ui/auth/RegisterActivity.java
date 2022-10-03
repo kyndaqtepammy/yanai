@@ -39,6 +39,8 @@ import com.facebook.login.widget.LoginButton;
 import com.pamsillah.yanai.MainActivity;
 import com.pamsillah.yanai.R;
 import com.pamsillah.yanai.config.Config;
+import com.pamsillah.yanai.ui.onboarding.SlideActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Arrays;
@@ -207,7 +209,7 @@ public class RegisterActivity extends AppCompatActivity {
                     try {
                         final Boolean success = Boolean.parseBoolean(response.getString("success"));
                         if ( success ) {
-                            //go to main activity, set shared prefs
+                            //go to welcome activity, set shared prefs
                             SharedPreferences sharedPreferences = RegisterActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -217,7 +219,7 @@ public class RegisterActivity extends AppCompatActivity {
                             editor.putString(Config.KEY_NAME, strFullname);
                             editor.putString(Config.KEY_PASSWORD, strPassword);
                             editor.apply();
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, SlideActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             //progressDialog.dismiss();
                             startActivity(intent);

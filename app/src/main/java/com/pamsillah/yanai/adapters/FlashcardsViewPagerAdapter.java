@@ -1,6 +1,7 @@
 package com.pamsillah.yanai.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.util.Log;
@@ -20,10 +21,14 @@ import com.pamsillah.yanai.R;
 import com.pamsillah.yanai.config.Config;
 import com.pamsillah.yanai.models.ModelFlashcards;
 import com.pamsillah.yanai.utils.CustomVolleyRequest;
+import com.pamsillah.yanai.utils.HelperMethods;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.pamsillah.yanai.config.Config.LANGUAGE_NDEBELE;
+import static com.pamsillah.yanai.config.Config.LANGUAGE_SHONA;
 
 public class FlashcardsViewPagerAdapter extends PagerAdapter {
     // This holds all the currently displayable views, in order from left to right.
@@ -65,9 +70,20 @@ public class FlashcardsViewPagerAdapter extends PagerAdapter {
         play_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,sliderImg.get(position).getFlashCardShonaAudio() , Toast.LENGTH_LONG).show();
-                playAudio(sliderImg.get(position).getFlashCardShonaAudio());
-                Log.d(Config.TAG, sliderImg.get(position).getFlashCardShonaAudio());
+                switch(HelperMethods.getLanguagePref(context.getApplicationContext())) {
+                    case Config.LANGUAGE_NDEBELE:
+                            Toast.makeText(context,sliderImg.get(position).getFlashCardNdebeleAudio() , Toast.LENGTH_LONG).show();
+                            playAudio(sliderImg.get(position).getFlashCardNdebeleAudio());
+                            Log.d(Config.TAG, sliderImg.get(position).getFlashCardNdebeleAudio());
+                    case LANGUAGE_SHONA:
+                        Toast.makeText(context,sliderImg.get(position).getFlashCardShonaAudio() , Toast.LENGTH_LONG).show();
+                        playAudio(sliderImg.get(position).getFlashCardShonaAudio());
+                        Log.d(Config.TAG, sliderImg.get(position).getFlashCardShonaAudio());
+                    default:
+                        Toast.makeText(context,sliderImg.get(position).getFlashCardNdebeleAudio() , Toast.LENGTH_LONG).show();
+                        playAudio(sliderImg.get(position).getFlashCardNdebeleAudio());
+                        Log.d(Config.TAG, sliderImg.get(position).getFlashCardNdebeleAudio());
+                }
             }
         });
 

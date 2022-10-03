@@ -20,6 +20,7 @@
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/drawable/shadow_background.xml" value="0.1755" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/activity_main.xml" value="0.190625" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/activity_onboarding.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/activity_register.xml" value="0.196875" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/activity_slide.xml" value="0.259963768115942" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/activity_welcome.xml" value="0.259963768115942" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/card_flashcats_layout.xml" value="0.14402173913043478" />
@@ -32,6 +33,7 @@
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/one_of_my_page_layouts.xml" value="0.2189207650273224" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/slide_screen.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Admin/Yanai/app/src/main/res/layout/slides_layout.xml" value="0.365625" />
+        <entry key="..\:/Users/Admin/Yanai/app/src/main/res/menu/main_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
